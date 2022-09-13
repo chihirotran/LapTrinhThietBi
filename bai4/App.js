@@ -11,9 +11,6 @@ export default function App() {
         <Text >Square 2</Text></View>
         <View style={style1.square3}>
         <Text >Square 3</Text></View>
-        
-        
-        
       </View>
       <StatusBar style="auto" />
     </View>
