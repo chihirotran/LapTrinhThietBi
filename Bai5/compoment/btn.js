@@ -17,7 +17,4 @@ export default function Btns(props) {
     }}>  
 <Text>{props.Text}</Text>
 </TouchableOpacity></View>
-    );
-  }
-  
-
+    );}

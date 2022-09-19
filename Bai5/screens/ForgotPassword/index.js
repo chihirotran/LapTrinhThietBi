@@ -16,40 +16,47 @@ import Ips from '../../compoment/input';
 import Ipspass from '../../compoment/inputpass';
 import Logos from '../../compoment/logo';
 import Btnback from '../../compoment/btnback';
-export default function SignUpScreen({ navigation }) {
+
+export default function ForgotPassword({ navigation }) {
   return (
     <View style={styles.container}>
-      {/* <View style={styles.btnback} ><Btnback color='#81d3e3' Text='Sign Ip' onPress={() => {navigation.goBack() }}></Btnback></View> */}
+      {/* <View style={styles.btnback} ><Btnback color='#81d3e3' Text='Sign Ip'  onPress={() => {navigation.goBack()}}></Btnback></View> */}
       <View style={styles.btnback}><TouchableOpacity onPress={() => { navigation.goBack() }} >
         <Image source={require('../../img/BackMini.png')}></Image>
       </TouchableOpacity></View>
-      <Text style={styles.titleText}>Create new account</Text>
+      <View style={styles.viewtop}>
+        <Text style={styles.titleText}>Sign In</Text></View>
       <View style={styles.viewtop1}>
-        <Ips Text="Email" placeholder="Full Name" /></View>
-      <View style={styles.viewtop1}>
-        <Ips Text="Email" placeholder="Phone Number" /></View>
-      <View style={styles.viewtop1}>
-        <Ips Text="Email" placeholder="Email" /></View>
-      <View style={styles.viewtop1}>
-        <Ipspass Text="Password" placeholder="Pass" /></View>
-
-      <Btns color='#81d3e3' Text='Sign Up'></Btns>
+        <Ips Text="Email" placeholder="TK" /></View>
+      <View style={styles.btn}>
+        <Btns color='#81d3e3' Text='Forgot Password'></Btns>
+        {/* <Text style={styles.ortext}>OR</Text> */}
+      </View>
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '',
     alignItems: 'center',
     // justifyContent: 'center',
-    flexDirection: 'column',
+
+  },
+  btnback: {
+    alignSelf: 'flex-start',
+    marginTop: 20
   },
   titleText: {
-    fontSize: 40,
-    fontWeight: "bold",
-    color: 'blue',
-    margin: 20
+    fontSize: 50,
+    // fontWeight: "bold"
+    color: 'blue'
+
+  },
+  tText: {
+    fontSize: 20,
+
 
   },
   viewtop: {
@@ -57,10 +64,21 @@ const styles = StyleSheet.create({
 
   },
   viewtop1: {
-    margin: 10
+    margin: 8
   },
-  btnback: {
-    alignSelf: 'flex-start',
-    marginTop: 20
+  ortext: {
+    fontSize: 40,
+    fontWeight: "bold",
+    margin: 20,
+    alignItems: 'center'
   },
+  btn: {
+    // justifyContent: "center",
+
+    paddingHorizontal: 10,
+
+  }
+
 });
+
+
