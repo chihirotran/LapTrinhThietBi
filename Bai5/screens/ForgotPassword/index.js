@@ -20,16 +20,16 @@ import Btnback from '../../compoment/btnback';
 export default function ForgotPassword({ navigation }) {
   return (
     <View style={styles.container}>
-      {/* <View style={styles.btnback} ><Btnback color='#81d3e3' Text='Sign Ip'  onPress={() => {navigation.goBack()}}></Btnback></View> */}
-      <View style={styles.btnback}><TouchableOpacity onPress={() => { navigation.goBack() }} >
+      <View style={styles.btnback} ><Btnback color='#81d3e3' Text='Sign Ip'  onPress={() => {navigation.goBack()}}></Btnback></View>
+      {/* <View style={styles.btnback}><TouchableOpacity onPress={() => { navigation.goBack() }} >
         <Image source={require('../../img/BackMini.png')}></Image>
-      </TouchableOpacity></View>
+      </TouchableOpacity></View> */}
       <View style={styles.viewtop}>
         <Text style={styles.titleText}>Sign In</Text></View>
       <View style={styles.viewtop1}>
         <Ips Text="Email" placeholder="TK" /></View>
       <View style={styles.btn}>
-        <Btns color='#81d3e3' Text='Forgot Password'></Btns>
+        <Btns color='#81d3e3' Text='Search'></Btns>
         {/* <Text style={styles.ortext}>OR</Text> */}
       </View>
     </View>

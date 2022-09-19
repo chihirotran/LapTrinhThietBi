@@ -9,7 +9,7 @@ export default function Btnback(props) {
 //       title={props.Text}
 // />
 <View style={{margin:10}}>
-<TouchableOpacity onPress={() => { }} >  
+<TouchableOpacity onPress={props.onPress} >  
 <Image source={require('../img/BackMini.png')}></Image>
 </TouchableOpacity></View>
     );

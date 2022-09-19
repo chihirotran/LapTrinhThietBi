@@ -9,7 +9,7 @@ export default function Btns(props) {
 //       title={props.Text}
 // />
 <View style={{margin:10}}>
-<TouchableOpacity onPress={() => { }} style={{backgroundColor: props.color,
+<TouchableOpacity onPress={props.onPress}  style={{backgroundColor: props.color,
     paddingHorizontal: 80,
     paddingVertical: 15,
     borderRadius: 30,

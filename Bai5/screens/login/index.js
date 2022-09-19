@@ -20,14 +20,14 @@ export default function LoginScreen({ navigation }) {
       <Logos></Logos>
       <View style={styles.viewtop}><Text style={styles.titleText}>Welcone to your</Text></View>
       <Text style={{ marginBottom: 15 }}>Welcone to your app. Build your own social network in minutes</Text>
-      {/* <Btns color="#81d3e3" Text='Log In' onPress={() => {navigation.replace('SignInScreen') }} ></Btns>
-            <Btns color="#8e64a1" Text='Sign Up' onPress={() => {navigation.replace('SignUpScreen') }}></Btns> */}
-      <View style={{margin: 10}}><TouchableOpacity onPress={() => {navigation.navigate('SignInScreen') }} style={styles.BtnC}>
+      <Btns color="#81d3e3" Text='Log In' onPress={() => {navigation.navigate('SignIn') }} ></Btns>
+            <Btns color="#8e64a1" Text='Sign Up' onPress={() => {navigation.navigate('SignUp') }}></Btns>
+      {/* <View style={{margin: 10}}><TouchableOpacity onPress={() => {navigation.navigate('SignInScreen') }} style={styles.BtnC}>
         <Text>Log In</Text>
       </TouchableOpacity></View>
       <View style={{margin: 10}}><TouchableOpacity onPress={() => {navigation.navigate('SignUpScreen') }} style={styles.BtnC}>
         <Text>Sign Up</Text>
-      </TouchableOpacity></View>
+      </TouchableOpacity></View> */}
     </View>
   )
 

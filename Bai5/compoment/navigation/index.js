@@ -15,10 +15,10 @@ function AppNavigation() {
           headerShown: false,
         }}
       >
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="SignInScreen" component={SignInScreen} />
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-        <Stack.Screen name="Forgotpassword" component={ForgotPassword} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        <Stack.Screen name="Forgot" component={ForgotPassword} />
       </Stack.Navigator>
     </NavigationContainer>
   );
