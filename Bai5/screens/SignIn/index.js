@@ -34,7 +34,11 @@ export default function SignInScreen({ navigation }) {
         <Btns color='#81d3e3' Text='Sign Ip'></Btns>
         {/* <Text style={styles.ortext}>OR</Text> */}
         <Btns color='#81d3e3' Text='facebook Login'></Btns>
-        <Btns color='#81d3e3' Text='Forgot Password' onPress={() => { navigation.replace('ForgotPassword') }}></Btns></View>
+        {/* <Btns color='#81d3e3' Text='Forgot Password' onPress={() => { navigation.navigate('ForgotPassword') }}></Btns> */}
+        <View style={{margin: 10}}><TouchableOpacity onPress={() => {navigation.push('Forgotpassword') }} style={styles.BtnC}>
+        <Text>Forgot Password</Text>
+      </TouchableOpacity></View>
+        </View>
     </View>
   )
 }
@@ -46,6 +50,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // justifyContent: 'center',
 
+  },
+  BtnC:{
+    backgroundColor: "#81d3e3",
+        paddingHorizontal: 80,
+        paddingVertical: 15,
+        borderRadius: 30,
+        alignItems: "center",
   },
   btnback: {
     alignSelf: 'flex-start',
