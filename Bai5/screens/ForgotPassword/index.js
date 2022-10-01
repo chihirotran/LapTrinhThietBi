@@ -11,11 +11,11 @@ import {
   Keyboard,
   TouchableOpacity
 } from 'react-native';
-import Btns from '../../compoment/btn';
-import Ips from '../../compoment/input';
-import Ipspass from '../../compoment/inputpass';
-import Logos from '../../compoment/logo';
-import Btnback from '../../compoment/btnback';
+import Btns from '../../src/btn';
+import Ips from '../../src/input';
+import Ipspass from '../../src/inputpass';
+import Logos from '../../src/logo';
+import Btnback from '../../src/btnback';
 
 export default function ForgotPassword({ navigation }) {
   return (

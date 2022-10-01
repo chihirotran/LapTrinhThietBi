@@ -11,9 +11,9 @@ import {
   Keyboard,
   TouchableOpacity
 } from 'react-native';
-import Btns from '../../compoment/btn';
-import Ips from '../../compoment/input';
-import Logos from '../../compoment/logo';
+import Btns from '../../src/btn';
+import Ips from '../../src/input';
+import Logos from '../../src/logo';
 export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>

@@ -11,13 +11,56 @@ import {
   Keyboard,
   TouchableOpacity
 } from 'react-native';
-import Btns from '../../compoment/btn';
-import Ips from '../../compoment/input';
-import Ipspass from '../../compoment/inputpass';
-import Logos from '../../compoment/logo';
-import Btnback from '../../compoment/btnback';
+import Btns from '../../src/btn';
+import Ips from '../../src/input';
+import Ipspass from '../../src/inputpass';
+import Logos from '../../src/logo';
+import Btnback from '../../src/btnback';
+import React, { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignInScreen({ navigation }) {
+  const [Email, setemail] = useState('');
+  const [password, setpassword] = useState('');
+  const goToHome = () => {
+    if (Email.trim() == '' || !Email) {
+      alert('Không được để trống email !');
+    } else if (password.trim() == '' || !password) {
+      alert('Không được để trống mật khẩu ! ');
+      // alert('Không được để trống mật khẩu ! ' + password.trim());
+    } else {
+      login();
+    }
+  };
+  const login = async () => {
+    let userData = await AsyncStorage.getItem('userData');
+    if (userData) {
+      userData = JSON.parse(userData);
+      let arr = [...userData];
+      arr = arr.filter(
+        (value) =>
+          value.Email.toLocaleLowerCase() == Email.toLocaleLowerCase() &&
+          value.password == password
+      );
+      if (arr.length > 0) {
+        let curUser = arr[0];
+        AsyncStorage.setItem('curUser', JSON.stringify(curUser));
+        navigation.navigate('Home');
+      } else alert('Email hoặc mật khẩu không chính xác!');
+    } else {
+      alert('Email hoặc mật khẩu không chính xác!');
+    }
+  };
+  const goToSignUp = async () => {
+    navigation.navigate('SignUpScreen');
+  };
+  const checkLogin = async () => {
+    let userData = await AsyncStorage.getItem('curUser');
+    if (userData) navigation.replace('Home');
+  };
+  useEffect(() => {
+    checkLogin();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.btnback} ><Btnback color='#81d3e3' Text='Sign Ip' onPress={() => {navigation.goBack() }} >  </Btnback></View>
@@ -27,11 +70,11 @@ export default function SignInScreen({ navigation }) {
       <View style={styles.viewtop}>
         <Text style={styles.titleText}>Sign In</Text></View>
       <View style={styles.viewtop1}>
-        <Ips Text="Email" placeholder="TK" /></View>
+        <Ips Text="Email" placeholder="TK" onChangeText={setemail} /></View>
       <View style={styles.viewtop1}>
-        <Ipspass Text="Password" placeholder="Pass" /></View>
+        <Ipspass Text="Password" placeholder="Pass"  onChangeText={setpassword}/></View>
       <View style={styles.btn}>
-        <Btns color='#81d3e3' Text='Sign Ip'></Btns>
+        <Btns color='#81d3e3' Text='Sign Ip' onPress={goToHome}></Btns>
         {/* <Text style={styles.ortext}>OR</Text> */}
         <Btns color='#81d3e3' Text='facebook Login'></Btns>
         <Btns color='#81d3e3' Text='Forgot Password' onPress={() => { navigation.navigate("Forgot") }}></Btns>
@@ -88,9 +131,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     // justifyContent: "center",
-
     paddingHorizontal: 10,
-
   }
 
 });

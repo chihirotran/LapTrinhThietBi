@@ -5,6 +5,7 @@ import LoginScreen from "../../screens/login";
 import SignInScreen from "../../screens/SignIn";
 import SignUpScreen from "../../screens/SignUP";
 import ForgotPassword from "../../screens/ForgotPassword";
+import HomeScreen from "../../screens/Home";
 const Stack = createStackNavigator();
 
 function AppNavigation() {
@@ -19,6 +20,7 @@ function AppNavigation() {
         <Stack.Screen name="SignIn" component={SignInScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Forgot" component={ForgotPassword} />
+        <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
