@@ -18,7 +18,7 @@ import Ipspass from '../../src/inputpass';
 import Logos from '../../src/logo';
 import Btnback from '../../src/btnback';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-export default function SignInScreen({navigation})  {
+export default function SignInScreen({ navigation }) {
   const [Email, setemail] = useState("");
   const [Name, setname] = useState("");
   const [password, setpassword] = useState("");
@@ -33,9 +33,9 @@ export default function SignInScreen({navigation})  {
       alert("Không được để trống email !");
     } else if (password.trim() == "" || !password) {
       alert("Không được để trống mật khẩu !");
-    }else if( Phone.trim() == "" || !Phone) {
+    } else if (Phone.trim() == "" || !Phone) {
       alert("Không được để trống số điện thoại !")
-    }else {
+    } else {
       createAccount();
     }
   };
@@ -62,9 +62,9 @@ export default function SignInScreen({navigation})  {
       userData = [];
       userData.push({
         Name: Name.trim(),
-          Email: Email.trim(),
-          password: password.trim(),
-          Phone: Phone.trim(),
+        Email: Email.trim(),
+        password: password.trim(),
+        Phone: Phone.trim(),
       });
     }
     AsyncStorage.setItem("userData", JSON.stringify(userData));
