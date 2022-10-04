@@ -18,6 +18,13 @@ import Logos from '../../src/logo';
 import Btnback from '../../src/btnback';
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+const URL = "localhost:3000/login"
+const callGETurl =async () =>{
+  console.log("call..... GET");
+  const res = await axios.get(URL);
+  console.log("RES",res.data);
+}
 
 export default function SignInScreen({ navigation }) {
   const [Email, setemail] = useState('');
@@ -74,7 +81,7 @@ export default function SignInScreen({ navigation }) {
       <View style={styles.viewtop1}>
         <Ipspass Text="Password" placeholder="Pass"  onChangeText={setpassword}/></View>
       <View style={styles.btn}>
-        <Btns color='#81d3e3' Text='Sign Ip' onPress={goToHome}></Btns>
+        <Btns color='#81d3e3' Text='Sign Ip' onPress={callGETurl}></Btns>
         {/* <Text style={styles.ortext}>OR</Text> */}
         <Btns color='#81d3e3' Text='facebook Login'></Btns>
         <Btns color='#81d3e3' Text='Forgot Password' onPress={() => { navigation.navigate("Forgot") }}></Btns>
