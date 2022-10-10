@@ -20,11 +20,7 @@ import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 const URL = "localhost:3000/login"
-const callGETurl =async () =>{
-  console.log("call..... GET");
-  const res = await axios.get(URL);
-  console.log("RES",res.data);
-}
+
 
 export default function SignInScreen({ navigation }) {
   const [Email, setemail] = useState('');
@@ -40,30 +36,43 @@ export default function SignInScreen({ navigation }) {
     }
   };
   const login = async () => {
-    let userData = await AsyncStorage.getItem('userData');
-    if (userData) {
-      userData = JSON.parse(userData);
-      let arr = [...userData];
-      arr = arr.filter(
-        (value) =>
-          value.Email.toLocaleLowerCase() == Email.toLocaleLowerCase() &&
-          value.password == password
-      );
-      if (arr.length > 0) {
-        let curUser = arr[0];
-        AsyncStorage.setItem('curUser', JSON.stringify(curUser));
-        navigation.navigate('Home');
-      } else alert('Email hoặc mật khẩu không chính xác!');
+  //   let userData = await AsyncStorage.getItem('userData');
+  //   if (userData) {
+  //     userData = JSON.parse(userData);
+  //     let arr = [...userData];
+  //     arr = arr.filter(
+  //       (value) =>
+  //         value.Email.toLocaleLowerCase() == Email.toLocaleLowerCase() &&
+  //         value.password == password
+  //     );
+  //     if (arr.length > 0) {
+  //       let curUser = arr[0];
+  //       AsyncStorage.setItem('curUser', JSON.stringify(curUser));
+  //       navigation.navigate('HomeTab');
+  //     } else alert('Email hoặc mật khẩu không chính xác!');
+  //   } else {
+  //     alert('Email hoặc mật khẩu không chính xác!');
+  //   }
+  // };
+  try {
+    const res = await axios.get(
+      `http://192.168.0.100:3000/user/${Email.trim()}`
+    );
+    if (res.data.password == password.trim()) {
+      navigation.navigate("Home");
     } else {
-      alert('Email hoặc mật khẩu không chính xác!');
+      alert(`Email hoặc mật khẩu không chính xác!`);
     }
-  };
+  } catch (error) {
+    console.log(error);
+  }
+};
   const goToSignUp = async () => {
     navigation.navigate('SignUpScreen');
   };
   const checkLogin = async () => {
     let userData = await AsyncStorage.getItem('curUser');
-    if (userData) navigation.replace('Home');
+    if (userData) navigation.replace('HomeTab');
   };
   useEffect(() => {
     checkLogin();
@@ -81,9 +90,8 @@ export default function SignInScreen({ navigation }) {
       <View style={styles.viewtop1}>
         <Ipspass Text="Password" placeholder="Pass"  onChangeText={setpassword}/></View>
       <View style={styles.btn}>
-        <Btns color='#81d3e3' Text='Sign Ip' onPress={callGETurl}></Btns>
+        <Btns color='#81d3e3' Text='Sign Ip' onPress={goToHome}></Btns>
         {/* <Text style={styles.ortext}>OR</Text> */}
-        <Btns color='#81d3e3' Text='facebook Login'></Btns>
         <Btns color='#81d3e3' Text='Forgot Password' onPress={() => { navigation.navigate("Forgot") }}></Btns>
         {/* <View style={{margin: 10}}><TouchableOpacity onPress={() => {navigation.push('Forgotpassword') }} style={styles.BtnC}>
         <Text>Forgot Password</Text>
