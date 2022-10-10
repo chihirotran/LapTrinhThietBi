@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,Component  } from 'react';
 import { FlatList, ScrollView, StatusBar, Text, View, SafeAreaView } from 'react-native';
 import DrinkItem from '../src/components/DrinkItem';
 import data from '../src/data/drinks.json';
@@ -7,7 +7,9 @@ import dataList from "../src/data/data";
 import styles from './styles';
 import Btns from "../src/btn";
 import axios from 'axios'
-export default function HomeScreen({ navigation }) {
+import Swiper from 'react-native-swiper';
+
+function HomeScreen({ navigation }) {
   const [user, setuser] = useState(null);
   const [apidata, setApidata] = useState([]);
   const renderItem = ({ item, index }) => {
@@ -15,7 +17,7 @@ export default function HomeScreen({ navigation }) {
   };
   const logOut = async () => {
     const res = await axios.get(
-      `http://192.168.0.100:3000/user`
+      `http://10.0.60.171:3000/user`
     );
     navigation.reset({
       index: 0,
@@ -23,12 +25,19 @@ export default function HomeScreen({ navigation }) {
     });
   };
   const getapi = ()=>{
-    axios.get(`http://192.168.0.100:3000/products`).then((Response)=> {
-      setApidata(response.data);
+    axios.get(`http://10.0.60.171:3000/products`).then((Response)=> {
+      setApidata(Response.data);
     });
   };
 
-  useEffect(() => getapi(),[]);
+  useEffect(function () {
+    fetch(`http://10.0.60.171:3000/products`)
+      .then((e) => e.json())
+      .then((rep) => setApidata(rep))
+      .catch((err) => {
+        setApidata([]);
+      });
+  }, []);
   // componentDidMount() {
   //   axios.get(`http://192.168.0.100:3000/products`)
   //     .then(res => {
@@ -63,21 +72,44 @@ export default function HomeScreen({ navigation }) {
   //   }
   // };
   return (
-    <View>
-      {apidata.map((item)=> {
-        return(
-        //   <FlatList
-        //   data={item}
-        //   horizontal
-        //   showsHorizontalScrollIndicator={true}
-        //   keyExtractor={(item, index) => item + index}
-        //   renderItem={renderItem}
-        // />
-        <View><Text>{item.name}</Text></View>
-        )
-      })}
-    </View>
-    
+    <ScrollView>
+      <View style={{marginTop:35}}><Text>Thanh TImf Kiem</Text></View>
+      <View style={{height:200}}><Swiper style={styles.wrapper} showsButtons>
+  <View style={styles.slide1}>
+    <Text style={styles.text}>Network Booster</Text>
+  </View>
+  <View style={styles.slide2}>
+    <Text style={styles.text}>VPN Secure</Text>
+  </View>
+  <View style={styles.slide3}>
+    <Text style={styles.text}>Easy User</Text>
+  </View>
+</Swiper></View>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.title}>Các Món Có Thể Bạn Sẽ Thích</Text>
+        <FlatList
+          data={data}
+          horizontal
+          showsHorizontalScrollIndicator={true}
+          numRow = {2}
+          keyExtractor={(item, index) => item + index}
+          renderItem={renderItem}
+        /></View>
+    <View style={styles.sectionContainer}>
+    {data === "" ? (
+      <Text style={styles.loadingText}>Loading...</Text>
+    ) : (
+      
+      <FlatList
+        data={data}
+        // renderItem={({ item }) => <Item name={item.name} />}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        numColumns = {2}
+      />
+    )}
+  </View>
+  </ScrollView>
     // <ScrollView 
     //   style={{
     //     backgroundColor: '#fff',
@@ -105,8 +137,8 @@ export default function HomeScreen({ navigation }) {
     //       </Text>
     //     </View>
     //   </View>
-    //   <View style={styles.sectionContainer}>
-    //     <Text style={styles.title}>Các Món Có Thể Bạn Sẽ Thích</Text>
+      // <View style={styles.sectionContainer}>
+      //   <Text style={styles.title}>Các Món Có Thể Bạn Sẽ Thích</Text>
       //   <FlatList
       //     data={apidata}
       //     horizontal
@@ -142,3 +174,4 @@ export default function HomeScreen({ navigation }) {
 
   );
 }
+export default HomeScreen;

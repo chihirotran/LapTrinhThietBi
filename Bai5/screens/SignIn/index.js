@@ -56,7 +56,7 @@ export default function SignInScreen({ navigation }) {
   // };
   try {
     const res = await axios.get(
-      `http://192.168.0.100:3000/user/${Email.trim()}`
+      `http://10.0.60.171:3000/user/${Email.trim()}`
     );
     if (res.data.password == password.trim()) {
       navigation.navigate("Home");

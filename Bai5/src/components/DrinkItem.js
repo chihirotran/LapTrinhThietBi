@@ -29,7 +29,7 @@ function DrinkItem(props) {
         </Text>
         <View style={{ flexDirection: 'row' }}>
           <Text style={{ color: '#2FDBBC', fontWeight: 'bold', flex: 1 }}>
-            {item?.price} VND
+            Chi Chí {item?.price} VND
           </Text>
           
         </View>
