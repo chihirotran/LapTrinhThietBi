@@ -1,23 +1,30 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useEffect, useState,Component  } from 'react';
-import { FlatList, ScrollView, StatusBar, Text, View, SafeAreaView } from 'react-native';
+import { FlatList, ScrollView, StatusBar, Text, View, SafeAreaView,TextInput,Dimensions } from 'react-native';
 import DrinkItem from '../src/components/DrinkItem';
-import data from '../src/data/drinks.json';
+import Ips from "../src/input";
+import { Fontisto } from '@expo/vector-icons';
 import dataList from "../src/data/data";
 import styles from './styles';
 import Btns from "../src/btn";
 import axios from 'axios'
 import Swiper from 'react-native-swiper';
-
+import Btntab from "../src/btntab";
+import Item from "../src/Iteam";
 function HomeScreen({ navigation }) {
   const [user, setuser] = useState(null);
   const [apidata, setApidata] = useState([]);
+  const [data1, setdata1] = useState([]);
+  let ScreenHeight = Dimensions.get("window").height;
+  let urlpro = `http://192.168.0.100:3000/products`;
+  let urlpro1 = `http://192.168.0.100:3000/products/1`;
+  const [data2, setdata2] = useState([]);
   const renderItem = ({ item, index }) => {
     return <DrinkItem item={item} index={index} navigation={navigation} />;
   };
   const logOut = async () => {
     const res = await axios.get(
-      `http://10.0.60.171:3000/user`
+      `http://192.168.0.100:3000/user`
     );
     navigation.reset({
       index: 0,
@@ -25,17 +32,25 @@ function HomeScreen({ navigation }) {
     });
   };
   const getapi = ()=>{
-    axios.get(`http://10.0.60.171:3000/products`).then((Response)=> {
+    axios.get(`http://192.168.0.100:3000/products`).then((Response)=> {
       setApidata(Response.data);
     });
   };
 
   useEffect(function () {
-    fetch(`http://10.0.60.171:3000/products`)
+    fetch(urlpro)
       .then((e) => e.json())
       .then((rep) => setApidata(rep))
       .catch((err) => {
         setApidata([]);
+      });
+  }, []);
+  useEffect(function () {
+    fetch(urlpro1)
+      .then((e) => e.json())
+      .then((rep) => setdata1(rep))
+      .catch((err) => {
+        setdata1([]);
       });
   }, []);
   // componentDidMount() {
@@ -73,7 +88,8 @@ function HomeScreen({ navigation }) {
   // };
   return (
     <ScrollView>
-      <View style={{marginTop:35}}><Text>Thanh TImf Kiem</Text></View>
+      <View style={{marginTop:StatusBar.currentHeight,alignItems: 'center',
+    justifyContent: 'center',marginBottom:10}}><TextInput  style={{padding: 10, height: 40,width:'90%', borderColor: 'gray', borderWidth: 1,borderRadius: 10 }}placeholder="SearchBar"  ></TextInput></View>
       <View style={{height:200}}><Swiper style={styles.wrapper} showsButtons>
   <View style={styles.slide1}>
     <Text style={styles.text}>Network Booster</Text>
@@ -86,25 +102,34 @@ function HomeScreen({ navigation }) {
   </View>
 </Swiper></View>
       <View style={styles.sectionContainer}>
-        <Text style={styles.title}>Các Món Có Thể Bạn Sẽ Thích</Text>
+        <Text style={styles.title}>Các Món Theo Lượt Yêu Thích</Text>
         <FlatList
-          data={data}
+          data={data1}
           horizontal
           showsHorizontalScrollIndicator={true}
           numRow = {2}
           keyExtractor={(item, index) => item + index}
-          renderItem={renderItem}
-        /></View>
+          renderItem={renderItem} />
+        
+        </View>
+    <View style={{height:70 , backgroundColor: 'red'}}>
+      <FlatList
+      data={apidata}
+      horizontal
+      showsHorizontalScrollIndicator={true}
+      keyExtractor={(item, index) => item + index}
+      renderItem={({ item }) => <Item name={item.ingredient} />}/>
+    </View>
     <View style={styles.sectionContainer}>
-    {data === "" ? (
+    {apidata === "" ? (
       <Text style={styles.loadingText}>Loading...</Text>
     ) : (
       
       <FlatList
-        data={data}
+        data={apidata}
         // renderItem={({ item }) => <Item name={item.name} />}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => item + index}
         numColumns = {2}
       />
     )}

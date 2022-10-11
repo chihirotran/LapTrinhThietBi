@@ -44,8 +44,10 @@ module.exports = function (app) {
   app.route("/products").get(productsCtrl.get).post(productsCtrl.store);
 
   app
-    .route("/products/::productId")
+    .route("/products/:productId")
     .get(productsCtrl.detail)
+    .lock(productsCtrl.detail1)
     .put(productsCtrl.update)
     .delete(productsCtrl.delete);
+
 };

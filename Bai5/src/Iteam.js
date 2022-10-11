@@ -1,10 +1,10 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text ,TouchableOpacity} from "react-native";
  
 export default function Item({name}) {
   return (
     <View style={styles.items}>
-      <Text style={styles.itemText}>{name}</Text>
+      <TouchableOpacity style={{height:20}} ><Text>{name}</Text></TouchableOpacity>
     </View>
   );
 }

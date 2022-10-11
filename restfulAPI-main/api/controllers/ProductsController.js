@@ -13,7 +13,14 @@ module.exports = {
     });
   },
   detail: (req, res) => {
-    let sql = "SELECT * FROM products WHERE id = ?";
+    let sql = "SELECT * FROM `products` ORDER BY `products`.`like` DESC;";
+    db.query(sql, [req.params.productId], (err, response) => {
+      if (err) throw err;
+      res.json(response);
+    });
+  },
+  detail1: (req, res) => {
+    let sql = "SELECT * FROM `products` WHERE ID = ?";
     db.query(sql, [req.params.productId], (err, response) => {
       if (err) throw err;
       res.json(response[0]);
@@ -22,12 +29,12 @@ module.exports = {
   update: (req, res) => {
     let data = req.body;
     let productId = req.params.productId;
-    let sql = "UPDATE products SET ? WHERE id = ?";
+    let sql = 'UPDATE products SET  ? WHERE id = ?'
     db.query(sql, [data, productId], (err, response) => {
-      if (err) throw err;
-      res.json({ message: "Update success!" });
-    });
-  },
+        if (err) throw err
+        res.json({message: 'Update success!'})
+    })
+},
   store: (req, res) => {
     let data = req.body;
     let sql = "INSERT INTO products SET ?";

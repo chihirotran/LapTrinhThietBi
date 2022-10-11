@@ -22,10 +22,10 @@ module.exports = {
   update: (req, res) => {
     let data = req.body;
     let userId = req.params.userId;
-    let sql = "UPDATE user SET ? WHERE id = ?";
+    let sql = "UPDATE user SET ? WHERE email = ?";
     db.query(sql, [data, userId], (err, response) => {
       if (err) throw err;
-      res.json({ message: "Update success!" });
+      res.json({message: "Update success!"});
     });
   },
   store: (req, res) => {
